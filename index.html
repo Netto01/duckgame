@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <title>Pegue o Pato - Duck Hunt</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="frame">
+	<svg id="game" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="450" height="680" fill="none" viewBox="0 0 450 680">
+		<path fill="#7DC8CF" d="M0 1h450v680H0z"/>
+		<path fill="#976F4A" d="M0 0h450v80H0z"/>
+		<path fill="#FDC571" d="M0 631h450v50H0z"/>
+		<path fill="#67442B" d="M0 74h450v6H0z"/>
+		<rect width="430" height="54" x="10" y="10" fill="#67442B" rx="12"/>
+		<path xmlns="http://www.w3.org/2000/svg" fill="#FFE2B4" d="M391.652 25.303c3.524-3.523 9.148-3.665 12.842-.427l.017-.016.352-.334a9.407 9.407 0 0 1 13.285 13.286l-.333.352-13.303 13.303-13.304-13.304.016-.017c-3.238-3.695-3.097-9.318.428-12.843Z"/>
+		<g fill="#FEDAA1" font="inherit" >
+			<text id="score" x="25" y="46" >00000000</text>
+			<text id="lives" x="345" y="46" font="inherit" ></text>
+			<text id="combo-display" x="225" y="46" text-anchor="middle" font-size="14" fill="#FFD700" visibility="hidden">COMBO: 0x</text>
+		</g>
+
+		<path fill="#FEECBF" d="M104.139 183.699c1.5-19.5-32-23-32-1.5-15.5-5.5-20.5 13.5-12.5 16 14.5 0 43.5.5 55 .5 10.5-4-.5-22-10.5-15Zm295.5-2c1.642-21.263-33-24.5-34.5-3.5-18.5-6-24.258 16.956-15.5 19.682h60.837c11.495-4.362.111-23.815-10.837-16.182ZM93.078 379.908c1.792-23.22-34.939-29.209-41.439-2.209-16.5-8-22.677 16.903-13.12 19.88h66.384c12.543-4.763.121-26.007-11.825-17.671Zm192.561-69.209c1.295-16-22.804-22.105-27.5-3.5-11.919-5.513-18.639 12.448-11.736 14.5h47.954c9.061-3.282-.089-16.744-8.718-11Zm16 232.5c1.307-16.633-24.76-21.841-29.5-2.5-12.033-5.731-18.163 12.839-11.194 14.971h48.413c10.281-3.471.993-18.442-7.719-12.471Z"/>
+
+		<g font-size="36" id="game-over-screen" pointer-events="none" visibility="hidden" >
+			<!-- Fundo simples -->
+			<rect x="100" y="180" width="250" height="200" fill="rgba(0,0,0,0.85)" stroke="#8B4513" stroke-width="3" rx="15"/>
+			
+			<!-- Título GAME OVER -->
+			<text x="225" y="220" text-anchor="middle" stroke="#2F1B14" stroke-width="6" font-size="28">GAME OVER</text>
+			<text x="225" y="220" text-anchor="middle" fill="#FF6B35" font-size="28">GAME OVER</text>
+			
+			<!-- Informações de pontuação -->
+			<text id="final-score-info" x="225" y="260" text-anchor="middle" font-size="18" fill="#FFFFFF">Final Score: 0</text>
+			<text id="high-score-info" x="225" y="280" text-anchor="middle" font-size="14" fill="#FFD700">Best: 0</text>
+			
+			<!-- Botão Jogar Novamente simples -->
+			<g id="play-again-btn" pointer-events="all" style="cursor: pointer;">
+				<rect x="150" y="310" width="150" height="40" fill="#4CAF50" stroke="#45A049" stroke-width="2" rx="20"/>
+				<text x="225" y="335" text-anchor="middle" font-size="16" fill="#FFFFFF" font-weight="bold">JOGAR NOVAMENTE</text>
+			</g>
+			
+			<!-- Dica de tecla -->
+			<text x="225" y="370" text-anchor="middle" font-size="12" fill="#BBB">Pressione R para reiniciar</text>
+		</g>
+
+		<!-- symbols -->
+		<symbol id="toast" xmlns="http://www.w3.org/2000/svg" width="95" height="57" viewBox="0 0 95 57">
+			<!-- Asas do pato -->
+			<g class="toast__wings">
+				<ellipse cx="20" cy="30" rx="12" ry="8" fill="#FFD700" stroke="#FFA500" stroke-width="2" transform="rotate(-20 20 30)"/>
+				<ellipse cx="75" cy="30" rx="12" ry="8" fill="#FFD700" stroke="#FFA500" stroke-width="2" transform="rotate(20 75 30)"/>
+			</g>
+			
+			<!-- Corpo do pato -->
+			<ellipse cx="47.5" cy="35" rx="28" ry="18" fill="#FFD700" stroke="#FFA500" stroke-width="2"/>
+			
+			<!-- Cabeça do pato -->
+			<circle cx="47.5" cy="15" r="12" fill="#FFD700" stroke="#FFA500" stroke-width="2"/>
+			
+			<!-- Bico do pato -->
+			<path d="M35 15 L28 18 L35 21 Z" fill="#FF8C00" stroke="#FF7F00" stroke-width="1"/>
+			
+			<!-- Olhos do pato -->
+			<g class="toast__eyes">
+				<circle cx="42" cy="12" r="2.5" fill="#000"/>
+				<circle cx="53" cy="12" r="2.5" fill="#000"/>
+				<circle cx="43" cy="11" r="1" fill="#FFF"/>
+				<circle cx="54" cy="11" r="1" fill="#FFF"/>
+			</g>
+			
+			<!-- Patas do pato -->
+			<g fill="#FF8C00" stroke="#FF7F00" stroke-width="1">
+				<path d="M35 50 L32 55 L30 53 M32 55 L34 57 M32 55 L30 57"/>
+				<path d="M60 50 L63 55 L65 53 M63 55 L61 57 M63 55 L65 57"/>
+			</g>
+		</symbol>
+	</svg>
+</div>
+<script src="assets/js/script.js"></script>
+</body>
+</html>
